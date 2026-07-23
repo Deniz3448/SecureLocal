@@ -1,0 +1,51 @@
+OWASP Top 10 (2021) - Web Uygulamaları için En Kritik 10 Güvenlik Riski
+
+1. Broken Access Control (Bozuk Erişim Denetimi)
+Kullanıcıların yetkileri dışındaki verilere veya işlemlere erişebilmesidir. Örneğin normal bir kullanıcının
+URL'deki bir ID'yi değiştirerek başka bir kullanıcının hesabına erişmesi. Önlem: her istekte sunucu
+tarafında yetki kontrolü yapmak, "varsayılan olarak reddet" prensibini uygulamak.
+
+2. Cryptographic Failures (Kriptografik Hatalar)
+Hassas verilerin (parola, kredi kartı, kimlik bilgisi) zayıf şifreleme ile ya da hiç şifrelenmeden
+saklanması veya iletilmesidir. Önlem: veriyi hem aktarımda (HTTPS/TLS) hem depoda (AES gibi güncel
+algoritmalarla) şifrelemek, parolaları bcrypt/argon2 gibi algoritmalarla hashlemek.
+
+3. Injection (Enjeksiyon)
+Kullanıcıdan alınan verinin doğrulanmadan bir sorgu veya komut içine eklenmesiyle oluşur. En bilineni
+SQL Injection: kullanıcı girdisi doğrudan SQL sorgusuna eklenirse saldırgan veritabanını manipüle
+edebilir. Önlem: parametreli sorgular (prepared statements) kullanmak, girdi doğrulama ve escaping
+uygulamak, ORM kullanmak.
+
+4. Insecure Design (Güvensiz Tasarım)
+Güvenlik önlemlerinin koda sonradan eklenmeye çalışılması değil, en baştan tasarıma dahil
+edilmemesinden kaynaklanan yapısal zafiyetlerdir. Önlem: tehdit modelleme (threat modeling), güvenli
+tasarım desenleri kullanmak, geliştirme sürecine güvenliği en baştan dahil etmek.
+
+5. Security Misconfiguration (Güvenlik Yanlış Yapılandırması)
+Varsayılan şifrelerin değiştirilmemesi, gereksiz servislerin açık bırakılması, hata mesajlarının hassas
+bilgi sızdırması gibi yapılandırma hatalarıdır. Önlem: sunucu ve uygulamaları sertleştirmek (hardening),
+gereksiz özellikleri kapatmak, düzenli güvenlik denetimi yapmak.
+
+6. Vulnerable and Outdated Components (Güncel Olmayan Bileşenler)
+Kullanılan kütüphane, framework veya bağımlılıkların bilinen açıkları varsa ve güncellenmemişse
+saldırganlar bu açıkları kolayca istismar edebilir. Önlem: bağımlılıkları düzenli güncellemek, otomatik
+tarama araçları (örneğin npm audit, Dependabot) kullanmak.
+
+7. Identification and Authentication Failures (Kimlik Doğrulama Hataları)
+Zayıf parola politikaları, oturum yönetimi hataları, çok faktörlü kimlik doğrulamanın (MFA) olmaması gibi
+zafiyetlerdir. Önlem: güçlü parola politikası, MFA zorunluluğu, oturum sürelerini kısaltmak ve güvenli
+oturum token'ları kullanmak.
+
+8. Software and Data Integrity Failures (Yazılım ve Veri Bütünlüğü Hataları)
+Güncellemelerin, kritik verilerin veya CI/CD pipeline'ının bütünlüğünün doğrulanmadan kullanılmasıdır.
+Önlem: dijital imza doğrulama, güvenilir kaynaklardan paket indirme, CI/CD güvenliğini sağlamak.
+
+9. Security Logging and Monitoring Failures (Günlükleme ve İzleme Eksiklikleri)
+Şüpheli aktivitelerin loglanmaması veya izlenmemesi, saldırıların geç fark edilmesine ya da hiç fark
+edilmemesine yol açar. Önlem: kritik olayları (giriş denemeleri, yetki hataları) loglamak, anlık uyarı
+mekanizmaları kurmak.
+
+10. Server-Side Request Forgery - SSRF (Sunucu Taraflı İstek Sahteciliği)
+Sunucunun, saldırganın belirlediği bir URL'ye istek göndermeye zorlanmasıdır; bu da iç ağdaki
+kaynaklara erişim sağlayabilir. Önlem: sunucunun dışarıya yapabileceği istekleri beyaz liste ile
+kısıtlamak, gelen URL'leri doğrulamak.

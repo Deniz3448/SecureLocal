@@ -1,0 +1,39 @@
+Örnek Şirket Parola (Şifre) ve Erişim Güvenliği Politikası
+
+Bu belge, küçük/orta ölçekli bir şirket için örnek/şablon bir parola politikasıdır. Günlük konuşmada
+"şifre" olarak da adlandırılan parolanın nasıl belirlenmesi, saklanması ve korunması gerektiğini
+anlatır. SecureLocal'ın kullanıcının kendi şifre/parola politikasını bu şablonla kıyaslaması için
+referans olarak kullanılır.
+
+Parola Uzunluğu ve Karmaşıklığı
+Parolalar en az 12 karakter uzunluğunda olmalıdır. Büyük harf, küçük harf, rakam ve en az bir özel
+karakter içermelidir. Kullanıcı adı, doğum tarihi gibi tahmin edilebilir kişisel bilgiler parolada
+kullanılmamalıdır.
+
+Parola Değiştirme Sıklığı
+Modern güvenlik yaklaşımı, güçlü ve benzersiz bir parola kırılana kadar sık sık zorunlu değiştirmeyi
+önermez (çünkü bu kullanıcıları "Sifre1!, Sifre2!" gibi tahmin edilebilir örüntülere iter). Bunun yerine
+şüpheli bir sızıntı tespit edildiğinde derhal değiştirme esas alınmalıdır.
+
+Çok Faktörlü Kimlik Doğrulama (MFA)
+Tüm kritik sistemlere (e-posta, VPN, yönetici panelleri, bulut konsolları) erişim için MFA zorunludur.
+SMS yerine mümkünse authenticator uygulaması veya donanım anahtarı (FIDO2/security key) tercih
+edilmelidir.
+
+Parola Saklama
+Parolalar hiçbir zaman düz metin (plaintext) olarak saklanmaz. Bcrypt, Argon2 veya scrypt gibi "salted
+hash" algoritmaları kullanılmalıdır. MD5 veya SHA1 gibi eski algoritmalar parola hashleme için
+kullanılmamalıdır.
+
+Ortak Hesap ve Paylaşım Yasağı
+Parolalar başkalarıyla, e-posta veya mesajlaşma uygulamaları üzerinden paylaşılamaz. Ekip içi paylaşım
+gereken durumlarda bir parola yöneticisi (örneğin Bitwarden, 1Password) üzerinden güvenli paylaşım
+yapılmalıdır.
+
+Hesap Kilitleme
+Art arda 5 başarısız giriş denemesinden sonra hesap geçici olarak kilitlenmeli ve kullanıcıya bildirim
+gönderilmelidir. Bu, brute-force (kaba kuvvet) saldırılarına karşı temel bir önlemdir.
+
+İşten Ayrılma / Rol Değişikliği
+Bir çalışan işten ayrıldığında veya rolü değiştiğinde, ilgili tüm sistem erişimleri aynı gün içinde
+kaldırılmalı veya güncellenmelidir. Bu süreç bir kontrol listesiyle takip edilmelidir.

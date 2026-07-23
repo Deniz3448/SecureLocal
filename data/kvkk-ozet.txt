@@ -1,0 +1,41 @@
+KVKK (6698 Sayılı Kişisel Verilerin Korunması Kanunu) - Temel Kavramlar Özeti
+
+Bu belge KVKK'nın eğitim amaçlı, sadeleştirilmiş bir özetidir; resmi kanun metni yerine geçmez, hukuki
+danışmanlık değildir. Güncel ve bağlayıcı bilgi için kvkk.gov.tr adresine bakılmalıdır.
+
+Kişisel Veri Nedir?
+Kimliği belirli veya belirlenebilir gerçek kişiye ilişkin her türlü bilgidir: ad-soyad, TC kimlik no, adres,
+telefon, e-posta, IP adresi, biyometrik veri gibi. Sağlık verisi, cinsel hayat, dini inanç gibi veriler ise
+"özel nitelikli kişisel veri" sayılır ve daha sıkı korunur.
+
+Veri Sorumlusu ve Veri İşleyen
+Veri sorumlusu, kişisel verilerin işleme amaçlarını ve yöntemlerini belirleyen, veri kayıt sisteminin
+kurulmasından sorumlu kişi veya kuruluştur. Veri işleyen ise veri sorumlusunun talimatıyla veriyi işleyen
+üçüncü taraftır (örneğin bir bulut sağlayıcı).
+
+Açık Rıza
+Kişisel veri işlemenin temel şartı, ilgili kişinin özgür iradeyle, belirli bir konuya ilişkin, bilgilendirilmiş
+şekilde verdiği açık rızadır. Bazı istisnai durumlarda (kanunda açıkça öngörülme, sözleşmenin ifası
+için gereklilik gibi) açık rıza olmadan da veri işlenebilir.
+
+Veri İşleme İlkeleri
+Hukuka ve dürüstlük kuralına uygun olma, doğru ve güncel olma, belirli/açık/meşru amaçlar için işlenme,
+amaçla bağlantılı-sınırlı-ölçülü olma, gerektiği kadar süre saklanma. Yani "ileride işime yarar" diye
+gereksiz veri toplamak veya süresiz saklamak KVKK'ya aykırıdır.
+
+Veri İhlali Bildirimi
+Kişisel verilerin kanuni olmayan yollarla başkaları tarafından elde edilmesi durumunda (veri ihlali), veri
+sorumlusu bu durumu en kısa sürede ve gecikmeksizin, en geç 72 saat içinde Kişisel Verileri Koruma
+Kurulu'na bildirmek zorundadır. Etkilenen kişilere de makul en kısa sürede bildirim yapılmalıdır.
+
+İlgili Kişinin Hakları
+Kişisel verisi işlenen kişi; verisinin işlenip işlenmediğini öğrenme, işlenmişse buna ilişkin bilgi talep
+etme, işlenme amacına uygun kullanılıp kullanılmadığını öğrenme, yurt içinde/dışında aktarıldığı üçüncü
+kişileri bilme, eksik/yanlış işlenmişse düzeltilmesini isteme ve şartları oluştuğunda silinmesini/yok
+edilmesini isteme hakkına sahiptir.
+
+Yaptırımlar
+KVKK ihlallerinde idari para cezaları uygulanabilir; aydınlatma yükümlülüğünün yerine getirilmemesi,
+veri güvenliğine ilişkin yükümlülüklerin ihlali, Kurul kararlarının yerine getirilmemesi gibi durumlar ayrı
+ayrı cezalandırılabilir. Bazı durumlarda Türk Ceza Kanunu kapsamında hapis cezası da söz konusu
+olabilir.

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SecureLocal 🛡</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>🛡 SecureLocal</h1>
+    <p class="alt-yazi">Tamamen yerel çalışan siber güvenlik danışmanı — verin bilgisayarından çıkmaz.</p>
+  </header>
+
+  <main>
+    <section class="soru-alani">
+      <textarea id="soru" placeholder="Örn: SQL injection nasıl önlenir?" rows="3"></textarea>
+      <button id="sor-btn">Sor</button>
+
+      <div class="ornek-sorular">
+        <span>Örnek sorular:</span>
+        <button class="ornek" data-soru="Şifre politikam yeterli mi?">Şifre politikam yeterli mi?</button>
+        <button class="ornek" data-soru="KVKK'ya göre veri ihlalini kaç saatte bildirmeliyim?">Veri ihlali bildirim süresi?</button>
+        <button class="ornek" data-soru="SQL injection nedir ve nasıl önlenir?">SQL injection nasıl önlenir?</button>
+        <button class="ornek" data-soru="OWASP Top 10'da erişim denetimi neden önemli?">Erişim denetimi neden önemli?</button>
+      </div>
+    </section>
+
+    <section id="durum" class="durum"></section>
+
+    <section id="sonuc" class="sonuc hidden">
+      <h2>Cevap</h2>
+      <p id="cevap-metni"></p>
+
+      <h3>Kaynaklar</h3>
+      <ul id="kaynak-listesi"></ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>Microsoft Yaz Programı 2026 · Local RAG (Azure Foundry Local) · Deniz</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

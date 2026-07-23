@@ -1,0 +1,33 @@
+Örnek Güvenlik Açığı Açıklamaları (Eğitim Amaçlı)
+
+Not: Aşağıdaki örnekler gerçek CVE kayıtlarının birebir kopyası değildir; yaygın zafiyet türlerini
+öğretmek amacıyla sadeleştirilmiş, temsili örneklerdir.
+
+Örnek 1: SQL Injection - Giriş Formu
+Bir web uygulamasının giriş formu, kullanıcı adını doğrudan SQL sorgusuna ekliyordu:
+"SELECT * FROM users WHERE username = '" + kullaniciAdi + "'". Saldırgan kullanıcı adı alanına
+" OR '1'='1" yazarak doğrulamayı atlatabiliyordu. Çözüm: parametreli sorgu (prepared statement)
+kullanmak ve kullanıcı girdisini asla sorguya doğrudan eklememek.
+
+Örnek 2: Cross-Site Scripting (XSS) - Yorum Alanı
+Bir blog sitesinde kullanıcı yorumları, HTML olarak escape edilmeden doğrudan sayfaya
+yazdırılıyordu. Saldırgan yorum alanına <script> etiketiyle kötü amaçlı JavaScript ekleyerek diğer
+kullanıcıların oturum çerezlerini çalabiliyordu. Çözüm: kullanıcı girdisini görüntülemeden önce HTML
+encode etmek, Content-Security-Policy header'ı kullanmak.
+
+Örnek 3: Açıkta Kalan Yönetim Paneli
+Bir kurumsal uygulamanın /admin panelinin kimlik doğrulaması olmadan internete açık olduğu tespit
+edildi. Saldırgan doğrudan panele erişip sistem ayarlarını değiştirebiliyordu. Çözüm: yönetim
+panellerini iç ağa veya VPN arkasına almak, en azından güçlü kimlik doğrulama ve IP kısıtlaması
+uygulamak.
+
+Örnek 4: Eski ve Güncellenmemiş Kütüphane
+Bir uygulama, bilinen bir uzaktan kod çalıştırma (RCE) açığı bulunan eski bir sıkıştırma
+kütüphanesinin güncellenmemiş sürümünü kullanıyordu. Saldırgan özel hazırlanmış bir dosya
+yükleyerek sunucuda kod çalıştırabiliyordu. Çözüm: bağımlılıkları düzenli güncellemek, otomatik
+zafiyet tarama araçlarını CI/CD sürecine dahil etmek.
+
+Örnek 5: Zayıf Oturum Yönetimi
+Bir uygulamada oturum kimliği (session ID) tahmin edilebilir, artan sayılardan oluşuyordu (1, 2, 3...).
+Saldırgan sayıyı değiştirerek başka kullanıcıların oturumuna erişebiliyordu. Çözüm: kriptografik
+olarak güvenli, rastgele üretilmiş oturum token'ları kullanmak.
