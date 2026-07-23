@@ -2,7 +2,7 @@
 
 **Tamamen yerel çalışan, kaynak göstererek cevap veren bir siber güvenlik ve KVKK danışmanı.**
 
-Microsoft Yaz Programı 2026 — Azure Foundry Local (Local RAG) projesi. Hazırlayan: [Deniz](https://github.com/Deniz3448), 1. sınıf Bilgisayar Mühendisliği öğrencisi.
+Microsoft Yaz Programı 2026 — Azure Foundry Local (Local RAG) projesi. Hazırlayan: [Deniz](https://github.com/Deniz3448), 2. sınıf Yazılım Geliştirme öğrencisi.
 
 ![SecureLocal ekran görüntüsü](screenshot.png)
 
