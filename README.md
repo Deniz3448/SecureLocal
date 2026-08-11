@@ -18,8 +18,8 @@ bilgisayarında çalışan** bir yapay zeka modeliyle cevaba dönüştürüyor.
 
 ## Neden yerel?
 
-Bir şirketin parola politikasını ya da bir güvenlik açığını ChatGPT'ye sormak, o veriyi buluta
-göndermek demek. SecureLocal, [Azure Foundry Local](https://learn.microsoft.com/azure/ai-foundry/foundry-local/)
+Bir şirketin parola politikasını ya da bir güvenlik açığını buluttaki bir yapay zeka servisine
+sormak, o veriyi şirket dışına göndermek demek. SecureLocal, [Azure Foundry Local](https://learn.microsoft.com/azure/ai-foundry/foundry-local/)
 kullanarak modeli tamamen bilgisayarda çalıştırıyor — hiçbir soru, hiçbir belge internete
 gitmiyor. İnternet bağlantısını tamamen kapatıp da çalıştırabilirsin; bu, hassas güvenlik verisiyle
 uğraşan bir araç için tam da işverenlerin aradığı özellik: "veri bilgisayardan çıkmıyor."
