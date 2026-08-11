@@ -129,7 +129,8 @@ Tarayıcıda `http://localhost:3000` adresini aç.
 ## Kullanılan teknolojiler
 
 - **Node.js + Express** — sunucu
-- **Azure Foundry Local** (`phi-3.5-mini`) — yerel LLM çalıştırma, OpenAI-uyumlu API
+- **Azure Foundry Local** + Microsoft'un **`phi-3.5-mini`** modeli — modeli cihazda çalıştırma,
+  standart sohbet uç noktası (`/v1/chat/completions`)
 - **TF-IDF + kosinüs benzerliği** — yerel arama/retrieval, harici embedding modeli gerektirmez
 - Sade **HTML/CSS/JS** arayüz — framework yok
 
@@ -153,9 +154,8 @@ Tarayıcıda `http://localhost:3000` adresini aç.
 - Küçük, yerel bir modelin (phi-3.5-mini, ~2.5GB) CPU'da çalışabildiğini ama bulut modellerine göre
   hem daha yavaş hem bazen daha "dağınık" cevaplar verdiğini — bu, gizlilik/hız arasındaki gerçek
   bir mühendislik ödünleşimi.
-- Foundry Local'ın OpenAI-uyumlu bir API sunduğunu, yani `/v1/chat/completions` gibi standart bir
-  formatla konuştuğunu — ileride başka bir yerel/bulut modele geçmek istersem kod neredeyse
-  değişmeden kalır.
+- Foundry Local'ın sektörde yerleşik olan standart sohbet formatını (`/v1/chat/completions`)
+  konuştuğunu — bu sayede ileride başka bir modele geçmek istersem kod neredeyse değişmeden kalır.
 
 ## Lisans
 
