@@ -5,9 +5,16 @@ const fs = require('fs');
 const path = require('path');
 const express = require('express');
 
+// Foundry Local'a istek atmak için global fetch gerekiyor; eski Node'da sessizce
+// hep yedek moda düşmek yerine sebebi açıkça söyleyip duruyoruz.
+if (typeof fetch !== 'function') {
+  console.error(`SecureLocal: Node.js 18 veya üstü gerekiyor. Mevcut sürüm: ${process.version}`);
+  process.exit(1);
+}
+
 const DATA_DIR = path.join(__dirname, 'data');
 const FOUNDRY_BASE_URL = process.env.FOUNDRY_BASE_URL || 'http://localhost:5273/v1';
-const FOUNDRY_MODEL = process.env.FOUNDRY_MODEL || 'phi-3.5-mini';
+const FOUNDRY_MODEL = process.env.FOUNDRY_MODEL || ''; // boş bırakılırsa model otomatik bulunur
 const PORT = process.env.PORT || 3000;
 
 const SYSTEM_PROMPT = `Sen SecureLocal adında bir siber güvenlik danışmanısın.
@@ -61,13 +68,19 @@ const ESANLAMLILAR = {
   hacker: 'saldırgan',
 };
 
+// Türkçe sondan eklemeli bir dil: soruda "saatte / ihlalini / bildirmeliyim" yazarken belgede
+// "saat / ihlal / bildirir" geçiyor ve tam kelime eşleşmesi hiçbirini yakalayamıyor. Her kelimeyi
+// ilk 4 harfine indirmek (kaba gövdeleme), ek almış hâlleri aynı köke topluyor.
+const GOVDE_UZUNLUGU = 4;
+
 function tokenize(text) {
   return text
     .toLocaleLowerCase('tr')
     .replace(/[^a-zçğıöşü0-9\s]/g, ' ')
     .split(/\s+/)
     .filter((w) => w.length > 2)
-    .map((w) => ESANLAMLILAR[w] || w);
+    .map((w) => ESANLAMLILAR[w] || w)
+    .map((w) => w.slice(0, GOVDE_UZUNLUGU));
 }
 
 function buildIndex(chunks) {
@@ -130,13 +143,35 @@ function search(query, chunks, index, topK = 4) {
 }
 
 // ---- 3) Foundry Local'a bağlanıp cevabı ürettir ----
+
+// Modelin tam adı bilgisayardan bilgisayara değişiyor (ör. "...-cpu:2" ile "...-gpu:2",
+// farklı sürüm numaraları). Koda sabit bir ad yazınca başka bir makinede istek 400 dönüp
+// uygulama sessizce yedek moda düşüyordu. Bu yüzden .env'de ad verilmemişse indirilmiş
+// modelleri Foundry'ye sorup ilkini seçiyoruz.
+let secilenModel = FOUNDRY_MODEL;
+async function modelAdiniBul() {
+  if (secilenModel) return secilenModel;
+
+  const r = await fetch(`${FOUNDRY_BASE_URL}/models`, { signal: AbortSignal.timeout(5000) });
+  if (!r.ok) throw new Error(`Model listesi alınamadı: ${r.status}`);
+
+  const idler = ((await r.json()).data || []).map((m) => m.id);
+  if (idler.length === 0) {
+    throw new Error('Foundry Local çalışıyor ama indirilmiş model yok (foundry model run ... ile indir).');
+  }
+
+  secilenModel = idler.find((id) => /phi/i.test(id)) || idler[0];
+  console.log(`SecureLocal: kullanılacak model otomatik seçildi -> ${secilenModel}`);
+  return secilenModel;
+}
+
 async function askFoundry(soru, kaynakParcalari) {
   const baglam = kaynakParcalari
     .map((k, i) => `[Kaynak ${i + 1} - ${k.kaynak}]\n${k.metin}`)
     .join('\n\n');
 
   const body = {
-    model: FOUNDRY_MODEL,
+    model: await modelAdiniBul(),
     messages: [
       { role: 'system', content: SYSTEM_PROMPT },
       { role: 'user', content: `Kaynaklar:\n\n${baglam}\n\nSoru: ${soru}` },
@@ -193,6 +228,8 @@ app.post('/api/ask', async (req, res) => {
       cevap = await askFoundry(soru, bulunanlar);
       if (!cevap) throw new Error('Foundry Local boş cevap döndü.');
     } catch (err) {
+      // Sebebi terminale yaz; aksi halde "neden yedek moda düştü" görünmez oluyor.
+      console.warn(`SecureLocal: Foundry Local'dan cevap alınamadı — ${err.message}`);
       foundryCalisti = false;
       cevap = yedekCevap(bulunanlar);
     }
@@ -211,13 +248,20 @@ app.post('/api/ask', async (req, res) => {
 
 app.get('/api/health', async (req, res) => {
   try {
-    const r = await fetch(`${FOUNDRY_BASE_URL}/models`, { signal: AbortSignal.timeout(3000) });
-    res.json({ foundry: r.ok });
-  } catch {
-    res.json({ foundry: false });
+    // Sadece servis ayakta mı değil, kullanılabilir bir model de var mı diye bakıyoruz.
+    res.json({ foundry: true, model: await modelAdiniBul() });
+  } catch (err) {
+    res.json({ foundry: false, sebep: err.message });
   }
 });
 
 app.listen(PORT, () => {
   console.log(`SecureLocal http://localhost:${PORT} adresinde çalışıyor.`);
+}).on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`SecureLocal: ${PORT} portu başka bir program tarafından kullanılıyor.`);
+    console.error('Farklı bir portta başlatmak için: PORT=3001 npm start');
+    process.exit(1);
+  }
+  throw err;
 });
